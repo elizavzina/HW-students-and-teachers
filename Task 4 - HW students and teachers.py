@@ -14,18 +14,22 @@ class Student:
                 lecturer.grades[course] = [grade]
         else:
             return 'Ошибка'
-    def average_grade_by_course(students, course):
-        all_grades_list = []
-        for student in students:
-            if course in student.courses_in_progress:
-                all_grades_list.append(student.grades)
-                average_grade_by_course = float(sum(all_grades_list) / len(all_grades_list))
-                return (f'Средняя оценка за курс {course} у всех студентов составляет{average_grade_by_course}')
+
     def __str__(self):
         return (f'Имя: {self.name}\n'
                 f'Фамилия: {self.surname}\n'
                 f'Курсы в процессе изучения: {", ".join(self.courses_in_progress)}\n'
                 f'Завершенные курсы: {", ".join(self.finished_courses)}')
+some_student = Student('Ruoy', 'Eman', 'male')
+some_student_2 = Student('John', 'Brown', 'male')
+students = []
+students.extend(some_student, some_student_2)
+def average_grade_by_students(students, course):
+    all_grades_list = []
+    for student in students:
+        if course in student.courses_in_progress:
+            all_grades_list.append(student.grades)
+            return (f'Средняя оценка за курс {course} у всех студентов составляет{float(sum(all_grades_list) / len(all_grades_list))}')
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -38,16 +42,18 @@ class Lecturer(Mentor):
         self.surname = surname
         self.courses_attached = []
         self.grades = {}
-    def average_grade_by_course(lecturers, course):
-        all_grades_list = []
-        for lecturer in lecturers:
-            if course in lecturer.courses_attached:
-                all_grades_list.append(lecturer.grades)
-                average_grade_by_course = float(sum(all_grades_list) / len(all_grades_list))
-                return (f'Средняя оценка за курс {course} у всех лекторов составляет{average_grade_by_course}')
     def __str__(self):
         return (f'Имя: {self.name}\nФамилия: {self.surname}')
-
+some_lecturer = Lecturer('Some', 'Buddy')
+some_lecturer_2 = Lecturer('Any', 'Buddy')
+lecturers = []
+lecturers.extend(some_lecturer, some_lecturer_2)
+def average_grade_by_lecturers(lecturers, course):
+    all_grades_list = []
+    for lecturer in lecturers:
+        if course in lecturer.courses_attached:
+            all_grades_list.append(lecturer.grades)
+            return (f'Средняя оценка за курс {course} у всех лекторов составляет{float(sum(all_grades_list) / len(all_grades_list))}')
 class Reviewer(Mentor):
     def __init__(self, name, surname):
         self.name = name
@@ -64,12 +70,9 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
-some_student = Student('Ruoy', 'Eman', 'male')
-some_student_2 = Student('John', 'Brown', 'male')
+
 some_reviewer = Reviewer('Some', 'Buddy')
 some_reviewer_2 = Reviewer('Someone', 'Else')
-some_lecturer = Lecturer('Some', 'Buddy')
-some_lecturer_2 = Lecturer('Any', 'Buddy')
 
 some_student.courses_in_progress += ['Python', 'Git']
 some_student_2.courses_in_progress += ['Python', 'GitVerse']
@@ -102,5 +105,9 @@ print(some_lecturer)
 print(some_lecturer_2)
 print(some_student)
 print(some_student_2)
-print(Student.average_grade_by_course)
-print(Lecturer.average_grade_by_course)
+average_grade_by_students(students, 'Python')
+average_grade_by_students(students, 'Git')
+average_grade_by_students(students, 'GitVerse')
+average_grade_by_lecturers(lecturers, 'Python')
+average_grade_by_lecturers(lecturers, 'Git')
+average_grade_by_lecturers(lecturers, 'GitVerse')
