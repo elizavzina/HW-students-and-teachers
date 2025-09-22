@@ -67,7 +67,7 @@ class Lecturer(Mentor):
                 all_grades_list.append(lecturer.grades)
                 return float(sum(all_grades_list) / len(all_grades_list))
     def __str__(self):
-        return (f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {Lecturer.average_grade(self)}'
+        return (f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {Lecturer.average_grade(self)}\n'
                 f'Средняя оценка у всех лекторов составляет{self.average_grade_by_lecturers}')
 
 class Reviewer(Mentor):
